@@ -1,10 +1,11 @@
 import React from 'react'
-
+import {Link} from "react-router-dom";
 interface IPokemon{
     id:number;
     name:string;
     sprites:string;
     types:string;
+    
 }
 
 
@@ -22,6 +23,7 @@ const PokemonThumbnail:React.FC<IPokemon>=(props)=> {
                 <h3>{props.name}</h3>
                 <small>Type: {props.types}</small>
             </div>
+            <Link to={`/${props.name}`} className="moredetail-button">More Details</Link>
         </div>
     )
 }

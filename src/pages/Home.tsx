@@ -43,11 +43,8 @@ function Home() {
     <h1>Pokemon Evolution</h1>
     <div className="pokemon-container">
       <div className="all-container">
-        {allPokemons.map((pokemon:IPokemon, index:number) =>
-          <PokemonThumbnail id={pokemon.id} name={pokemon.name} sprites={pokemon.sprites.other.dream_world.front_default} types={pokemon.types[0].type.name} key={index} />
-        )}
-
-      </div>
+        {allPokemons.map((pokemon:IPokemon, index:number) =><PokemonThumbnail id={pokemon.id} name={pokemon.name} sprites={pokemon.sprites.other.dream_world.front_default} types={pokemon.types[0].type.name} key={index} />)}
+        </div>
       <button className="load-more" onClick={()=>getAllPokemons()}>Load More</button>
     </div>
   </div>
