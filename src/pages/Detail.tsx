@@ -1,12 +1,13 @@
-import { useParams } from 'react-router-dom';
+import { useParams,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Detail.css';
 import { useEffect, useState } from 'react';
 
 const Detail = () => {
     const [data, setData] = useState<any>();
+    const [pokemonSpecies,setPokemonSpecies]=useState<any>();
     let { name } = useParams();
-
+    const navigate = useNavigate();
 
     const renderPokemonBigImage = () => {
         return (
@@ -16,8 +17,7 @@ const Detail = () => {
         )
     }
     const renderPokemonMiniImage = () => {
-        console.log(data.types[0].type.name);
-
+        
         return (
             <div className='pokemon-mini-image' style={{ backgroundImage: `url("${data.sprites.versions['generation-v']['black-white'].animated.front_default}")` }} ></div>
         )
@@ -27,10 +27,15 @@ const Detail = () => {
         setData(dataResponse);
 
     }
+    const createPokemonSpeciesObjectDetail=async()=>{
+        const dataResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`).then(response => response.data).catch(e => console.log(e));
+        setPokemonSpecies(dataResponse);
+    }
 
     useEffect(() => {
 
         createPokemonObjectDetail();
+        createPokemonSpeciesObjectDetail();
         //eslint-disable-next-line
     }, [])
     return (
@@ -45,6 +50,9 @@ const Detail = () => {
                     </div>
                 </div>
                 <div className='pokemon-box-detail'>
+                    <div className='description-box'>
+                        <h6>{pokemonSpecies ? pokemonSpecies.genera[7].genus : 'Loading...'}</h6>
+                    </div>
                     <table>
                         <tbody>
                             <tr>
@@ -61,7 +69,13 @@ const Detail = () => {
                             </tr>
                         </tbody>
                     </table>
+                    <div className='pokemon-text'>
+                        <p>{pokemonSpecies ? pokemonSpecies.flavor_text_entries[1].flavor_text : 'Loading...'}</p>
+                    </div>
                 </div>
+                <button className='back-button' onClick={() => navigate('/')} >
+                    Go back
+                </button>
             </div>
         </div>
     );
