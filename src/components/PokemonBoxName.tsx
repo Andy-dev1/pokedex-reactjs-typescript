@@ -1,3 +1,5 @@
+import classes from './PokemonBoxName.module.css';
+
 interface IPokemonBoxName{
     name:string|undefined;
     miniSprite:string;
@@ -6,11 +8,11 @@ interface IPokemonBoxName{
 
 const PokemonBoxName=({name,miniSprite}:IPokemonBoxName)=>{
     return(
-                <div className='pokemon-box-name'>
-                    <div className='pokemon-box-name-layer'>
-                        <div className='pokemon-mini-image' style={{ backgroundImage: `url("${miniSprite}")` }} ></div>
+                <div className={classes['pokemon-box-name']}>
+                    <div className={classes['pokemon-box-name-layer']}>
+                        <img alt={`${name}`}className={classes['pokemon-mini-image']} src={`${miniSprite}`}></img>
                         <h5>{name}</h5>
-                        <div className='pokeball-icon'></div>
+                        <div className={classes['pokeball-icon']}></div>
                     </div>
                 </div>
     );

@@ -8,7 +8,7 @@ import PokemonBoxName from '../components/PokemonBoxName';
 import HomeButton from '../components/HomeButton';
 import DivisionWrapper from '../components/DivisionWrapper';
 import MainBox from '../components/MainBox';
-
+import loadingImage from '../assets/LoadingImage.png';
 
 interface IPokemonInfo {
     type: string;
@@ -22,12 +22,12 @@ interface IPokemonInfo {
 
 const Detail = () => {
     let { name } = useParams();
-    const [data, TESTEsetData] = useState<IPokemonInfo>({ type: 'Loading...', height: 'Loading...', weight: 'Loading...', bigSprite: 'Loading...', miniSprite: 'Loading...', littleDescription: 'Loading...', flavorText: 'Loading...' });
+    const [data, setData] = useState<IPokemonInfo>({ type: 'Loading...', height: 'Loading...', weight: 'Loading...', bigSprite: `${loadingImage}`, miniSprite: `${loadingImage}`, littleDescription: 'Loading...', flavorText: 'Loading...' });
 
     const RequestDetailApi = async () => {
         const dataResponseSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`).then(response => response.data).catch(e => console.log(e));
         const dataResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then(response => response.data).catch(e => console.log(e));
-        TESTEsetData({
+        setData({
             type: `${dataResponse.types.map((element: any, index: any) => element.type.name)}`
             , height: `${dataResponse.height / 10} m`
             , weight: `${dataResponse.weight / 10} kg`
@@ -45,7 +45,7 @@ const Detail = () => {
     return (
         <MainBox>
             <DivisionWrapper>
-                <div className='poke-image' style={{ backgroundImage: `url("${data.bigSprite}")` }}></div>
+                <img className='poke-image' alt={`${name}`} src={`${data.bigSprite}`}></img>
             </DivisionWrapper>
             <DivisionWrapper>
                 <PokemonBoxName name={name} miniSprite={data.miniSprite} />
