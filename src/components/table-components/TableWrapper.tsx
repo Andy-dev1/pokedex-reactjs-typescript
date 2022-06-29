@@ -1,4 +1,6 @@
 import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Table} from 'react-bootstrap';
 
 interface Iprops{
     children?:JSX.Element| JSX.Element[];
@@ -6,11 +8,11 @@ interface Iprops{
 
 const TableWrapper = ({children}:Iprops) => {
     return (
-        <table>
+        <Table striped bordered hover variant="dark">
             <tbody>
                 {children}
             </tbody>
-        </table>
+        </Table>
     )
 }
 export default TableWrapper;

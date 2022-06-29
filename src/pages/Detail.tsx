@@ -9,6 +9,8 @@ import HomeButton from '../components/HomeButton';
 import DivisionWrapper from '../components/DivisionWrapper';
 import MainBox from '../components/MainBox';
 import loadingImage from '../assets/LoadingImage.png';
+import { Container } from 'react-bootstrap';
+
 
 interface IPokemonInfo {
     type: string;
@@ -43,28 +45,30 @@ const Detail = () => {
         //eslint-disable-next-line
     }, []);
     return (
-        <MainBox>
-            <DivisionWrapper>
-                <img className='poke-image' alt={`${name}`} src={`${data.bigSprite}`}></img>
-            </DivisionWrapper>
-            <DivisionWrapper>
-                <PokemonBoxName name={name} miniSprite={data.miniSprite} />
-                <div className='pokemon-box-detail'>
-                    <div className='description-box'>
-                        <h6>{data.littleDescription}</h6>
+        <Container className='mx-auto'>
+            <MainBox>
+                <DivisionWrapper>
+                    <img className='poke-image mb-5' alt={`${name}`} src={`${data.bigSprite}`}></img>
+                </DivisionWrapper>
+                <DivisionWrapper>
+                    <PokemonBoxName name={name} miniSprite={data.miniSprite} />
+                    <div className='pokemon-box-detail'>
+                        <div className='description-box'>
+                            <h6>{data.littleDescription}</h6>
+                        </div>
+                        <TableWrapper>
+                            <TrInfo type='Type' data={data.type} />
+                            <TrInfo type='Height' data={data.height} />
+                            <TrInfo type='Weight' data={data.weight} />
+                        </TableWrapper>
+                        <div className='pokemon-text'>
+                            <p>{data.flavorText}</p>
+                        </div>
                     </div>
-                    <TableWrapper>
-                        <TrInfo type='Type' data={data.type} />
-                        <TrInfo type='Height' data={data.height} />
-                        <TrInfo type='Weight' data={data.weight} />
-                    </TableWrapper>
-                    <div className='pokemon-text'>
-                        <p>{data.flavorText}</p>
-                    </div>
-                </div>
-                <HomeButton />
-            </DivisionWrapper>
-        </MainBox>
+                    <HomeButton />
+                </DivisionWrapper>
+            </MainBox>
+        </Container>
     );
 }
 export default Detail;

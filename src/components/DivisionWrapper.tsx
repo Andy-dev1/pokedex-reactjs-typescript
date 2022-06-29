@@ -1,4 +1,5 @@
 import classes from './DivisionWrapper.module.css';
+import {Col} from 'react-bootstrap';
 
 interface Iprops{
     children?:JSX.Element| JSX.Element[];
@@ -6,9 +7,9 @@ interface Iprops{
 
 const DivisionWrapper = ({children}:Iprops)=>{
     return(
-        <section className={classes['division']}>
+        <Col className={classes['division']}>
             {children}
-        </section>
+        </Col>
     )
 }
 

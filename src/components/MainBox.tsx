@@ -1,4 +1,5 @@
 import classes from './MainBox.module.css'
+import {Row} from 'react-bootstrap'
 
 interface Iprops{
     children?:JSX.Element| JSX.Element[];
@@ -6,9 +7,9 @@ interface Iprops{
 
 const MainBox=({children}:Iprops)=>{
     return(
-        <main className={classes["box-wrapper"]}>
+        <Row className={`${classes["box-wrapper"]} p-5`}>
             {children}
-        </main>
+        </Row>
     )
 }
 export default MainBox;

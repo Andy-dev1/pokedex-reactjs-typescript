@@ -1,11 +1,3 @@
 .box-wrapper {
-    height: 520px;
-    width: 1280px;
-    background-color: #FF8C67;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: row;
+    background-color: #FF8C67; 
 }
