@@ -6,7 +6,7 @@ const HomeButton = () => {
     const navigate = useNavigate();
     
     return (
-        <Button className={classes['back-button']} onClick={() => navigate('/')} >
+        <Button className={`${classes['back-button']} mt-4 px-5`} onClick={() => navigate('/')} >
             Home
         </Button>
     )

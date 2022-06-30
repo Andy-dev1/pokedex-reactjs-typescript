@@ -1,9 +1,5 @@
-*{
-    transition: .5s;
-}
-
 .poke-image {
-    width: 216px;
+    max-width: 200px;
 }
 .pokemon-box-detail {
     margin-top: 50px;
@@ -11,9 +7,7 @@
 
     /* background-color: #D9D9D9; */
 }
-.container{
-    margin-top: 10%;
-}
+
 .description-box {
     
     height: 40px;

@@ -1,5 +1,7 @@
 import React from 'react'
 import {Link} from "react-router-dom";
+import {Col} from 'react-bootstrap';
+
 interface IPokemon{
     id:number;
     name:string;
@@ -13,7 +15,7 @@ const PokemonThumbnail:React.FC<IPokemon>=(props)=> {
     const style = `thumb-container ${props.types}`
     return (
         <Link to={`/${props.name}`} className="moredetail-button">
-        <div className={style}>
+        <Col  className={style}>
             <div className="number">
                 <small>
                     #0{props.id}
@@ -25,7 +27,7 @@ const PokemonThumbnail:React.FC<IPokemon>=(props)=> {
                 <small>Type: {props.types}</small>
             </div>
             {/* <Link to={`/${props.name}`} className="moredetail-button">More Details</Link> */}
-        </div>
+        </Col>
         </Link>
     )
 }

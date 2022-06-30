@@ -45,7 +45,7 @@ const Detail = () => {
         //eslint-disable-next-line
     }, []);
     return (
-        <Container className='mx-auto'>
+        <Container className='mx-auto mt-md-5 shadow-lg'>
             <MainBox>
                 <DivisionWrapper>
                     <img className='poke-image mb-5' alt={`${name}`} src={`${data.bigSprite}`}></img>

@@ -8,7 +8,7 @@ interface Iprops{
 
 const TableWrapper = ({children}:Iprops) => {
     return (
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover variant="light">
             <tbody>
                 {children}
             </tbody>
