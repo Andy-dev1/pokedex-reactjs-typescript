@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import PokemonThumbnail from "../components/PokemonThumbnail";
 import axios from 'axios';
-import {Container,Row,Col,Button} from 'react-bootstrap';
+import { Container, Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap';
 
 interface ISpritesDreamWorldFrontDefault {
   other: { dream_world: { front_default: string } };
@@ -17,10 +17,10 @@ interface IPokemon {
   types: [Itype]
 }
 
-
 function Home() {
   const [allPokemons, setAllPokemons] = useState<Array<IPokemon>>([]);
   const [loadMore, setLoadMore] = useState<string>('https://pokeapi.co/api/v2/pokemon?limit=20')
+  const [search, setSearch] = useState('');
 
   const getAllPokemons = async () => {
     const data = await axios.get(loadMore).then((response) => response.data).catch(e => console.log(e));
@@ -39,13 +39,33 @@ function Home() {
   // eslint-disable-next-line
   useEffect(() => { getAllPokemons() }, [])
 
+  const filteredResult = useMemo(() => {
+    if (search !== '') {
+      return allPokemons.filter((pokemon) => pokemon.name.toLowerCase().includes(search.toLowerCase()))
+    } else {
+      return allPokemons;
+    }
+  }, [search, allPokemons]);
+
   return (
     <Container className="app-container">
-      <h1 className="mb-5">Pokemon Evolution</h1>
+      <h1 className="mb-5 display-4">Pokédex</h1>
+      <Row>
+        <Col>
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="inputGroup-sizing-default">Filter Pokémon</InputGroup.Text>
+          <FormControl value={search} onChange={(ev) => setSearch(ev.target.value)}
+            aria-label="Default"
+            aria-describedby="inputGroup-sizing-default"
+          />
+        </InputGroup>
+        </Col> 
+      </Row>
       <Row className="d-flex justify-content-center mt-5">
-        <Row sm={1} md={3} xxl={5} >
-          {allPokemons.map((pokemon: IPokemon, index: number) => <PokemonThumbnail id={pokemon.id} name={pokemon.name} sprites={pokemon.sprites.other.dream_world.front_default} types={pokemon.types[0].type.name} key={index} />)}
-        </Row>
+        {filteredResult.map((pokemon: IPokemon, index: number) => <PokemonThumbnail id={pokemon.id} name={pokemon.name} sprites={pokemon.sprites.other.dream_world.front_default} types={pokemon.types[0].type.name} key={index} />)}
+        
+      </Row>
+      <Row className="d-flex justify-content-center mt-5 w-100">
         <Button className="mt-5" onClick={() => getAllPokemons()}>Load More</Button>
       </Row>
     </Container>

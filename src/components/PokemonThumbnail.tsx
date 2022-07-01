@@ -12,10 +12,10 @@ interface IPokemon{
 
 
 const PokemonThumbnail:React.FC<IPokemon>=(props)=> {
-    const style = `thumb-container ${props.types}`
+    const style = `thumb-container moredetail-button ${props.types} `
     return (
+        <Col  className={style} sm={1} >
         <Link to={`/${props.name}`} className="moredetail-button">
-        <Col  className={style}>
             <div className="number">
                 <small>
                     #0{props.id}
@@ -26,9 +26,8 @@ const PokemonThumbnail:React.FC<IPokemon>=(props)=> {
                 <h3>{props.name}</h3>
                 <small>Type: {props.types}</small>
             </div>
-            {/* <Link to={`/${props.name}`} className="moredetail-button">More Details</Link> */}
-        </Col>
         </Link>
+        </Col>
     )
 }
 export default PokemonThumbnail
