@@ -7,7 +7,7 @@ interface Iprops{
 
 const DivisionWrapper = ({children}:Iprops)=>{
     return(
-        <Col className={classes['division']}>
+        <Col md={6} className={classes['division']}>
             {children}
         </Col>
     )
