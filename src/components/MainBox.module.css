@@ -1,9 +1,0 @@
-.box-wrapper {
-    background-color: #FF8C67; 
-    
-}
-@media screen and (max-width: 600px) {
-    .box-wrapper{
-        height: 100vh;
-    }
-  }

@@ -51,6 +51,7 @@ const Detail = () => {
                     <img className='poke-image mb-5' alt={`${name}`} src={`${data.bigSprite}`}></img>
                 </DivisionWrapper>
                 <DivisionWrapper>
+                    
                     <PokemonBoxName name={name} miniSprite={data.miniSprite} />
                     <div className='pokemon-box-detail'>
                         <div className='description-box'>
