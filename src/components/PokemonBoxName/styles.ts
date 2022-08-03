@@ -8,6 +8,13 @@ export const Row = styled(RowBootstrap)`
     background: #FF7549;
     border-radius: 40px;
     overflow: hidden;
+
+    h5 {
+    position: relative;
+    margin: 0 auto;
+    top: 12px;
+    color: white;
+    }
 `;
 export const BoxName = styled.div`
     display: flex;

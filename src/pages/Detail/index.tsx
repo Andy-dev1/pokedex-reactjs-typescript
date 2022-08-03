@@ -1,15 +1,18 @@
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './Detail.css';
+
 import { useEffect, useState } from 'react';
-import TrInfo from '../components/table-components/TrInfo';
-import TableWrapper from '../components/table-components/TableWrapper';
-import PokemonBoxName from '../components/PokemonBoxName';
-import HomeButton from '../components/HomeButton';
-import DivisionWrapper from '../components/DivisionWrapper';
-import MainBox from '../components/MainBox';
-import loadingImage from '../assets/LoadingImage.png';
+import TrInfo from '../../components/table-components/TrInfo';
+import TableWrapper from '../../components/table-components/TableWrapper';
+import PokemonBoxName from '../../components/PokemonBoxName';
+import HomeButton from '../../components/HomeButton';
+import DivisionWrapper from '../../components/DivisionWrapper';
+
+import loadingImage from '../../assets/LoadingImage.png';
 import { Container } from 'react-bootstrap';
+
+
+import {PokemonBoxDetail,PokemonText,MainBox,DescriptionBox, PokeImage} from './styles';
 
 
 interface IPokemonInfo {
@@ -46,26 +49,28 @@ const Detail = () => {
     }, []);
     return (
         <Container className='mx-auto mt-md-5 shadow-lg'>
-            <MainBox>
+            <MainBox className='p-5'>
                 <DivisionWrapper>
-                    <img className='poke-image mb-5' alt={`${name}`} src={`${data.bigSprite}`}></img>
+                    <PokeImage alt={`${name}`} src={`${data.bigSprite}`}></PokeImage>
                 </DivisionWrapper>
                 <DivisionWrapper>
-                    
+
                     <PokemonBoxName name={name} miniSprite={data.miniSprite} />
-                    <div className='pokemon-box-detail'>
-                        <div className='description-box'>
+                    <PokemonBoxDetail>
+                        <DescriptionBox>
                             <h6>{data.littleDescription}</h6>
-                        </div>
+                        </DescriptionBox>
+
                         <TableWrapper>
                             <TrInfo type='Type' data={data.type} />
                             <TrInfo type='Height' data={data.height} />
                             <TrInfo type='Weight' data={data.weight} />
                         </TableWrapper>
-                        <div className='pokemon-text'>
+                        <PokemonText>
                             <p>{data.flavorText}</p>
-                        </div>
-                    </div>
+                        </PokemonText>
+                    </PokemonBoxDetail>
+                    
                     <HomeButton />
                 </DivisionWrapper>
             </MainBox>
