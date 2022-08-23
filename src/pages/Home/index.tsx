@@ -3,6 +3,7 @@ import PokemonThumbnail from "../../components/PokemonThumbnail";
 import axios from 'axios';
 import { Row, Col, Button, InputGroup, FormControl } from 'react-bootstrap';
 import {Container} from './styles'
+import { useQuery } from "react-query";
 
 interface ISpritesDreamWorldFrontDefault {
   other: { dream_world: { front_default: string } };
@@ -22,6 +23,8 @@ function Home() {
   const [allPokemons, setAllPokemons] = useState<Array<IPokemon>>([]);
   const [loadMore, setLoadMore] = useState<string>('https://pokeapi.co/api/v2/pokemon?limit=20')
   const [search, setSearch] = useState('');
+
+  
 
   const getAllPokemons = async () => {
     const data = await axios.get(loadMore).then((response) => response.data).catch(e => console.log(e));

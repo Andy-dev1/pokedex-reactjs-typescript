@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import TrInfo from '../../components/table-components/TrInfo';
 import TableWrapper from '../../components/table-components/TableWrapper';
 import PokemonBoxName from '../../components/PokemonBoxName';
@@ -13,6 +13,7 @@ import { Container } from 'react-bootstrap';
 
 
 import {PokemonBoxDetail,PokemonText,MainBox,DescriptionBox, PokeImage} from './styles';
+import { useQuery } from 'react-query';
 
 
 interface IPokemonInfo {
@@ -28,25 +29,35 @@ interface IPokemonInfo {
 const Detail = () => {
     let { name } = useParams();
     const [data, setData] = useState<IPokemonInfo>({ type: 'Loading...', height: 'Loading...', weight: 'Loading...', bigSprite: `${loadingImage}`, miniSprite: `${loadingImage}`, littleDescription: 'Loading...', flavorText: 'Loading...' });
+    
 
-    const RequestDetailApi = async () => {
+    const {data:pokeFetch,isLoading:dataResponseSpeciesIsLoading}=useQuery('dataResponseSpecies', async()=>{
         const dataResponseSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`).then(response => response.data).catch(e => console.log(e));
         const dataResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then(response => response.data).catch(e => console.log(e));
-        setData({
-            type: `${dataResponse.types.map((element: any, index: any) => element.type.name)}`
-            , height: `${dataResponse.height / 10} m`
-            , weight: `${dataResponse.weight / 10} kg`
-            , bigSprite: `${dataResponse.sprites.other.dream_world.front_default}`
-            , miniSprite: `${dataResponse.sprites.versions['generation-v']['black-white'].animated.front_default}`
-            , littleDescription: `${dataResponseSpecies.genera[7].genus}`
-            , flavorText: `${dataResponseSpecies.flavor_text_entries[1].flavor_text}`
-        });
-    }
+        
+        return {...dataResponseSpecies,...dataResponse}
+    });
+    
+    
+    
 
-    useEffect(() => {
-        RequestDetailApi();
+    useMemo(() => {
+        
+        setData({
+            type: `${pokeFetch?.types.map((element: any, index: any) => element.type.name)}`
+            , height: `${pokeFetch?.height / 10} m`
+            , weight: `${pokeFetch?.weight / 10} kg`
+            , bigSprite: `${pokeFetch?.sprites.other.dream_world.front_default}`
+            , miniSprite: `${pokeFetch?.sprites.versions['generation-v']['black-white'].animated.front_default}`
+            , littleDescription: `${pokeFetch?.genera[7].genus}`
+            , flavorText: `${pokeFetch?.flavor_text_entries[1].flavor_text}`
+        });
+        
+        
         //eslint-disable-next-line
-    }, []);
+    }, [pokeFetch]);
+    
+
     return (
         <Container className='mx-auto mt-md-5 shadow-lg'>
             <MainBox className='p-5'>
