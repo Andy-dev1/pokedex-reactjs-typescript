@@ -67,7 +67,7 @@ function Home() {
         </Col>
       </Row>
       <Row className="d-flex justify-content-center mt-5">
-        {filteredResult.map((pokemon: IPokemon, index: number) => <PokemonThumbnail id={pokemon.id} name={pokemon.name} sprites={pokemon.sprites.other.dream_world.front_default} types={pokemon.types[0].type.name} key={index} />)}
+        {filteredResult.sort((a, b) => a.id > b.id ? 1 : -1).map((pokemon: IPokemon, index: number) => <PokemonThumbnail id={pokemon.id} name={pokemon.name} sprites={pokemon.sprites.other.dream_world.front_default} types={pokemon.types[0].type.name} key={index} />)}
 
       </Row>
       <Row className="d-flex justify-content-center mt-5 w-100">

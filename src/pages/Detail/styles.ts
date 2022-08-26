@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import {Row} from 'react-bootstrap';
-
+import { Skeleton as SkeletonUI } from '@mui/material';
 export const PokemonBoxDetail = styled.div`
    margin-top: 50px;
 `;
@@ -38,4 +38,8 @@ export const DescriptionBox = styled.div`
 `;
 export const PokeImage = styled.img`
     max-width: 200px;
+`;
+export const Skeleton = styled(SkeletonUI)`
+    width: 100%;
+    margin-bottom: 20px;
 `;

@@ -12,8 +12,9 @@ import loadingImage from '../../assets/LoadingImage.png';
 import { Container } from 'react-bootstrap';
 
 
-import {PokemonBoxDetail,PokemonText,MainBox,DescriptionBox, PokeImage} from './styles';
+import {PokemonBoxDetail,PokemonText,MainBox,DescriptionBox, PokeImage, Skeleton} from './styles';
 import { useQuery } from 'react-query';
+
 
 
 interface IPokemonInfo {
@@ -31,11 +32,12 @@ const Detail = () => {
     const [data, setData] = useState<IPokemonInfo>({ type: 'Loading...', height: 'Loading...', weight: 'Loading...', bigSprite: `${loadingImage}`, miniSprite: `${loadingImage}`, littleDescription: 'Loading...', flavorText: 'Loading...' });
     
 
-    const {data:pokeFetch,isLoading:dataResponseSpeciesIsLoading}=useQuery('dataResponseSpecies', async()=>{
-        const dataResponseSpecies = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`).then(response => response.data).catch(e => console.log(e));
-        const dataResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`).then(response => response.data).catch(e => console.log(e));
+    const {data:pokeFetch,isLoading:dataResponseSpeciesIsLoading,isFetching}=useQuery('dataResponseSpecies', async ()=>{
         
-        return {...dataResponseSpecies,...dataResponse}
+        const {data:res1}= await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${name}`);
+        const {data:res2}= await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        
+         return {...res1,...res2}
     });
     
     
@@ -57,6 +59,26 @@ const Detail = () => {
         //eslint-disable-next-line
     }, [pokeFetch]);
     
+    if(isFetching){
+        return (<Container className='mx-auto mt-md-5 shadow-lg'>
+        <MainBox className='p-5'>
+                <DivisionWrapper>
+                        <Skeleton variant="rounded" height={260} />
+                </DivisionWrapper>
+                <DivisionWrapper>
+
+                        <Skeleton variant="rounded"  height={40}/>
+                    
+                        <Skeleton variant="rounded" height={20} />
+                        <Skeleton variant="rounded" height={60} />
+                        <Skeleton variant="rounded" height={50} />
+                    
+                    
+                    <HomeButton />
+                </DivisionWrapper>
+        </MainBox>
+    </Container>)
+    }
 
     return (
         <Container className='mx-auto mt-md-5 shadow-lg'>
